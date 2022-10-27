@@ -26,6 +26,7 @@ namespace Foundation.Infrastructure.Commerce.Extensions
                 .RegisterPartialRouter(new PartialRouter<PageData, PageData>(new MarketHierarchicalPageDataPartialRouting()));
             
             CatalogRouteHelper.MapDefaultHierarchialRouter(false);
+
             AddBusinessFoundationIfNeccessary(context);
             AddOrderMetaFieldsIfNesccessary();
             var installService = context.Locate.Advanced.GetInstance<IInstallService>();
