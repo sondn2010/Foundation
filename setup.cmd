@@ -23,7 +23,7 @@ set SQLSERVER=
 set ADDITIONAL_SQLCMD=
 set /p APPNAME=Enter your app name (required):
 set /p SQLSERVER=Enter your SQL server name (optional, press Enter for default (.) local server):
-set /p ADDITIONAL_SQLCMD=Enter your sqlcmd command (optional, press Enter for default (-E) windows auth):
+set /p ADDITIONAL_SQLCMD=Enter your sqlcmd command (optional, press Enter for default (-E) windows auth (ie: -U sa -P VErY!_sEcUrE_pAsSWoRD@2020)):
 
 set check=false
 if "%APPNAME%"=="" (set check=true)

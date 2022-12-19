@@ -5,9 +5,9 @@ using EPiServer.Core.Routing;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using Mediachase.Commerce.Catalog;
 using Mediachase.Commerce.Extensions;
 using System;
-using System.ComponentModel;
 
 namespace SonDo.Infrastructure.Routing;
 
@@ -15,7 +15,7 @@ public class MarketRouteHelper
 {
     private static readonly ILogger _log = LogManager.GetLogger(typeof(MarketRouteHelper));
 
-    public static void MapSchumacherRouter()
+    public static void MapCustomRouter()
     {
         // The default routing from Foundation
         //CatalogRouteHelper.MapDefaultHierarchialRouter(false);
@@ -24,20 +24,11 @@ public class MarketRouteHelper
         RegisterPartialRouter(new MarketHierarchicalPageDataPartialRouting());
         
         // Config market routing for Commerce content
-        var referenceConverter = ServiceLocator.Current.GetInstance<ReferenceConverter>();
-        var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-
-        var commerceRoot = contentLoader.GetChildren<CatalogContent>(referenceConverter.GetRootLink())
-            .FirstOrDefault(x => string.Equals(x.Name, Catalog.DefaultCatalogueName, StringComparison.OrdinalIgnoreCase));
-        if (commerceRoot == null)
-            throw new Exception($"The {Catalog.DefaultCatalogueName} category of type Schumacher Category need to be created first.");
-
         MapDefaultHierarchialRouter(
             () =>
                 !ContentReference.IsNullOrEmpty(SiteDefinition.Current.StartPage)
                     ? SiteDefinition.Current.StartPage
                     : SiteDefinition.Current.RootPage,
-            commerceRoot,
             false);
     }
     

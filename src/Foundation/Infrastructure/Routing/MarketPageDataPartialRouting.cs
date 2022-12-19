@@ -31,7 +31,6 @@ public class MarketHierarchicalPageDataPartialRouting : IPartialRouter<PageData,
     private const string VirtualPathCachePrefix = "EP:PageDataRouterVPath";
 
     [NonSerialized] private static readonly ILogger _log = LogManager.GetLogger(typeof(MarketHierarchicalPageDataPartialRouting));
-    public const string SegmentName = "market";
 
     public MarketHierarchicalPageDataPartialRouting()
         : this(
@@ -137,7 +136,7 @@ public class MarketHierarchicalPageDataPartialRouting : IPartialRouter<PageData,
         if (marketId != currentMarket.MarketId)
             _currentMarket.SetCurrentMarket(marketId);
 
-        context.RouteValues[SegmentName] = marketSegment;
+        context.RouteValues[MarketRoutingHelper.SegmentName] = marketSegment;
         context.RemainingSegments = segment.Remaining;
 
         return true;
